@@ -8,7 +8,7 @@ from pyrogram.errors import (
     PhoneCodeExpired,
     SessionPasswordNeeded,
     PasswordHashInvalid
-)
+)asa
 
 # Import Configuration from config.py
 from config import Config
@@ -16,9 +16,9 @@ from config import Config
 # --- BOT CLIENT INITIALIZATION ---
 bot = Client(
     "StringSessionBot",
-    api_id=Config.API_ID,
-    api_hash=Config.API_HASH,
-    bot_token=Config.BOT_TOKEN
+    api_id=Config.31260540,
+    api_hash=Config.cd213befc727364a96df92d26852bd89,
+    bot_token=Config.8573583620:AAFlxbvhN1xSXSoU1KBVEZ2zBlomn3ew5ok
 )
 
 # In-memory temporary storage for user states
