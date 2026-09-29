@@ -1,210 +1,354 @@
-import os
 import asyncio
+import yaml
 from pyrogram import Client, filters, enums
-from pyrogram.types import Message
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from pyrogram.errors import (
-    PhoneNumberInvalid,
-    PhoneCodeInvalid,
-    PhoneCodeExpired,
-    SessionPasswordNeeded,
-    PasswordHashInvalid
+    UserNotParticipant, SessionPasswordNeeded, FloodWait, InputUserDeactivated, UserIsBlocked
 )
+from motor.motor_asyncio import AsyncIOMotorClient
 
+import config
 
-# Import Configuration from config.py
-from config import Config
+# Load all strings from en.yml
+with open("en.yml", "r", encoding="utf-8") as f:
+    strings = yaml.safe_load(f)
 
-# --- BOT CLIENT INITIALIZATION ---
-bot = Client(
-    "StringSessionBot",
-    api_id=Config.31260540,
-    api_hash=Config.cd213befc727364a96df92d26852bd89,
-    bot_token=Config.8573583620:AAFlxbvhN1xSXSoU1KBVEZ2zBlomn3ew5ok
-)
+# MongoDB Connection Setup
+mongo_client = AsyncIOMotorClient(config.MONGO_URL)
+db = mongo_client["session_bot_db"]
+users_collection = db["users"]
 
-# In-memory temporary storage for user states
-user_states = {}
+bot = Client("session_generator_bot", api_id=config.API_ID, api_hash=config.API_HASH, bot_token=config.BOT_TOKEN)
 
-# --- 1. DIRECT START COMMAND ---
-@bot.on_message(filters.command("start") & filters.private)
-async def start_cmd(client: Client, message: Message):
-    user_id = message.from_user.id
-    
-    # Agar user ka pehle se koi active session process chal raha hai, toh use disconnect karein
-    if user_id in user_states:
-        old_client = user_states[user_id].get("client")
-        if old_client:
-            try:
-                await old_client.disconnect()
-            except Exception:
-                pass
+user_steps = {}
+user_data = {}
 
-    # Reset state and prompt for phone number
-    user_states[user_id] = {"step": "AWAITING_PHONE"}
+# User Logger Function
+async def log_new_user(client, user):
+    first = user.first_name or "N/A"
+    last = user.last_name or ""
+    full_name = f"{first} {last}".strip()
+    username = f"@{user.username}" if user.username else "No Username"
+    user_id = user.id
 
-    text = (
-        "👑 <b>Welcome To Free Key generator bot</b>\n"
-        "🔥 <b>FREE KEY LENE KE LIYE APNA NUMBER OR OTP DALE 👇👇</b>\n\n"
-        "📱 <b>Enter Phone Number</b>\n\n"
-        "Kripya apna Telegram Phone Number country code ke sath bhejein:\n"
-        "<i>Example: <code>+919876543210</code></i>\n\n"
-        ""
+    await users_collection.update_one(
+        {"user_id": user_id},
+        {"$set": {"full_name": full_name, "username": username}},
+        upsert=True
     )
 
-    await message.reply_text(text, parse_mode=enums.ParseMode.HTML)
+    log_text = strings["log_text"].format(
+        full_name=full_name,
+        user_id=user_id,
+        username=username
+    )
 
-
-
-# --- 2. CANCEL COMMAND ---
-@bot.on_message(filters.command("cancel") & filters.private)
-async def cancel_cmd(client: Client, message: Message):
-    user_id = message.from_user.id
-    if user_id in user_states:
-        temp_client = user_states[user_id].get("client")
-        if temp_client:
-            try:
-                await temp_client.disconnect()
-            except Exception:
-                pass
-        user_states.pop(user_id, None)
-        await message.reply("❌ Process cancel ho gaya. Dobara `/start` karein.")
-    else:
-        await message.reply("Koi active process nahi hai. `/start` dabayein.")
-
-
-# --- 3. STEP HANDLER (PHONE -> OTP -> 2FA) ---
-@bot.on_message(filters.private & filters.text & ~filters.command(["start", "cancel"]))
-async def handle_inputs(client: Client, message: Message):
-    user_id = message.from_user.id
-    state = user_states.get(user_id)
-
-    if not state:
-        return
-
-    step = state.get("step")
-
-    # STEP 1: PHONE NUMBER INPUT
-    if step == "AWAITING_PHONE":
-        phone_number = message.text.strip().replace(" ", "")
-        msg = await message.reply("⏳ OTP request bheja ja raha hai...")
-
-        temp_client = Client(
-            name=f"pyro_{user_id}_{asyncio.get_event_loop().time()}",
-            api_id=Config.API_ID,
-            api_hash=Config.API_HASH,
-            in_memory=True
-        )
-        
+    try:
+        photos = [p async for p in client.get_chat_photos(user_id, limit=1)]
+        if photos:
+            await client.send_photo(
+                chat_id=config.LOG_GROUP_ID,
+                photo=photos[0].file_id,
+                caption=log_text,
+                parse_mode=enums.ParseMode.HTML
+            )
+        else:
+            await client.send_message(
+                chat_id=config.LOG_GROUP_ID, 
+                text=log_text,
+                parse_mode=enums.ParseMode.HTML
+            )
+    except Exception:
         try:
-            await temp_client.connect()
-            code_info = await temp_client.send_code(phone_number)
-            user_states[user_id] = {
-                "step": "AWAITING_OTP",
-                "phone": phone_number,
-                "client": temp_client,
-                "phone_code_hash": code_info.phone_code_hash
-            }
-        except PhoneNumberInvalid:
-            await msg.edit_text("❌ Phone Number galat hai! Country code ke sath sahi number bhejein (e.g. <code>+919876543210</code>).")
-            try:
-                await temp_client.disconnect()
-            except:
-                pass
-            user_states.pop(user_id, None)
-            return
-        except Exception as e:
-            await msg.edit_text(f"❌ Error: <code>{str(e)}</code>\n\nDobara `/start` karein.")
-            try:
-                await temp_client.disconnect()
-            except:
-                pass
-            user_states.pop(user_id, None)
-            return
+            await client.send_message(
+                chat_id=config.LOG_GROUP_ID, 
+                text=log_text,
+                parse_mode=enums.ParseMode.HTML
+            )
+        except Exception:
+            pass
 
-        await msg.edit_text(
-            "📩 <b>OTP Sent Successfully!</b>\n\n"
-            "Telegram app par aaya hua OTP code bhejein.\n\n"
-            "⚠️ <b>Note:</b> OTP digits ke beech space dein (e.g. <code>1 2 3 4 5</code>)",
+# Channel Membership Check Function
+async def check_joined(client, user_id):
+    try:
+        await client.get_chat_member(config.CHANNEL_1, user_id)
+        await client.get_chat_member(config.CHANNEL_2, user_id)
+        return True
+    except UserNotParticipant:
+        return False
+    except Exception:
+        return False
+
+# Send Main Interface Function (Photo and Caption Together in a Single Message)
+async def send_main_menu(message_obj):
+    if hasattr(message_obj, "from_user"):
+        user = message_obj.from_user
+        target_msg = message_obj
+    else:
+        user = message_obj.message.chat
+        target_msg = message_obj.message
+
+    first_name = user.first_name or "User"
+
+    keyboard = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton(text="✨ ⚡ GENERATE SESSION ⚡ ✨", callback_data="gen_session")
+        ],
+        [
+            InlineKeyboardButton(text="🚀 FAST SESSION 🚀", callback_data="fast_session")
+        ],
+        [
+            InlineKeyboardButton(text="👑 OWNER", url="https://t.me/OWNER_ENAFUL"),
+            InlineKeyboardButton(text="📢 CHANNEL", url=f"https://t.me/{config.CHANNEL_1}")
+        ],
+        [
+            InlineKeyboardButton(text="💬 SUPPORT GROUP", url=f"https://t.me/{config.CHANNEL_2}")
+        ]
+    ])
+
+    caption = strings["welcome_caption"].format(
+        first_name=first_name,
+        user_id=user.id
+    )
+
+    # Sending photo and caption together in one single message
+    try:
+        await target_msg.reply_photo(
+            photo=config.WELCOME_IMG,
+            caption=caption,
+            reply_markup=keyboard,
+            parse_mode=enums.ParseMode.HTML
+        )
+    except Exception:
+        # Fallback to text only if photo link fails
+        await target_msg.reply_text(
+            text=caption, 
+            reply_markup=keyboard,
             parse_mode=enums.ParseMode.HTML
         )
 
-    # STEP 2: OTP INPUT
-    elif step == "AWAITING_OTP":
-        otp_code = message.text.replace(" ", "").strip()
-        temp_client = state["client"]
-        phone = state["phone"]
-        phone_code_hash = state["phone_code_hash"]
+# Start Command
+@bot.on_message(filters.command("start"))
+async def start_cmd(client, message):
+    user_id = message.from_user.id
+    user_steps[user_id] = None
+    user_data[user_id] = {}
 
-        msg = await message.reply("⏳ OTP verify ho raha hai...")
+    await log_new_user(client, message.from_user)
 
+    is_joined = await check_joined(client, user_id)
+    if not is_joined:
+        join_buttons = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton(text="📢 JOIN CHANNEL 1", url=f"https://t.me/{config.CHANNEL_1}"),
+                InlineKeyboardButton(text="📢 JOIN CHANNEL 2", url=f"https://t.me/{config.CHANNEL_2}")
+            ],
+            [
+                InlineKeyboardButton(text="👑 BOT OWNER", url="https://t.me/OWNER_ENAFUL")
+            ],
+            [
+                InlineKeyboardButton(text="✅ VERIFY JOIN ✅", callback_data="verify_join")
+            ]
+        ])
+        
+        verify_text = strings["verify_text"]
+        return await message.reply_text(
+            verify_text, 
+            reply_markup=join_buttons,
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    await send_main_menu(message)
+
+# Callback Handlers
+@bot.on_callback_query()
+async def callback_handler(client, query):
+    user_id = query.from_user.id
+
+    if query.data == "verify_join":
+        is_joined = await check_joined(client, user_id)
+        if is_joined:
+            await query.answer("✅ Verification successful!", show_alert=True)
+            try:
+                await query.message.delete()
+            except Exception:
+                pass
+            await send_main_menu(query)
+        else:
+            await query.answer("❌ Channel missing! Please join both channels.", show_alert=True)
+
+    elif query.data == "gen_session":
+        user_steps[user_id] = "WAITING_API_ID"
+        await query.message.reply_text(
+            strings["api_id_prompt"],
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    elif query.data == "fast_session":
+        user_data[user_id]["api_id"] = config.API_ID
+        user_data[user_id]["api_hash"] = config.API_HASH
+        user_steps[user_id] = "WAITING_PHONE"
+        await query.message.reply_text(
+            strings["phone_prompt"],
+            parse_mode=enums.ParseMode.HTML
+        )
+
+# Broadcast Command
+@bot.on_message(filters.command("broadcast") & filters.user(config.OWNER_ID))
+async def broadcast_handler(client, message):
+    if not message.reply_to_message:
+        return await message.reply_text(
+            strings["broadcast_no_reply"],
+            parse_mode=enums.ParseMode.HTML
+        )
+
+    status_msg = await message.reply_text(
+        strings["broadcast_start"],
+        parse_mode=enums.ParseMode.HTML
+    )
+
+    success = 0
+    failed = 0
+    blocked = 0
+
+    cursor = users_collection.find({})
+    async for user in cursor:
+        user_id = user["user_id"]
         try:
-            await temp_client.sign_in(phone, phone_code_hash, otp_code)
-            session_str = await temp_client.export_session_string()
-            await temp_client.disconnect()
-            user_states.pop(user_id, None)
-            await send_session(client, user_id, session_str, msg)
-        except SessionPasswordNeeded:
-            user_states[user_id]["step"] = "AWAITING_PASSWORD"
-            await msg.edit_text(
-                "🔐 Account par <b>2FA Password</b> set hai.\n\n"
-                "Kripya apna 2FA Password enter karein:",
+            await message.reply_to_message.copy(chat_id=user_id)
+            success += 1
+            await asyncio.sleep(0.05)
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
+            await message.reply_to_message.copy(chat_id=user_id)
+            success += 1
+        except (UserIsBlocked, InputUserDeactivated):
+            blocked += 1
+            await users_collection.delete_one({"user_id": user_id})
+        except Exception:
+            failed += 1
+
+    await status_msg.edit_text(
+        strings["broadcast_done"].format(
+            success=success,
+            failed=failed,
+            blocked=blocked
+        ),
+        parse_mode=enums.ParseMode.HTML
+    )
+
+# Message Handler
+@bot.on_message(filters.text & filters.private)
+async def process_inputs(client, message):
+    user_id = message.from_user.id
+    step = user_steps.get(user_id)
+    text = message.text
+
+    if not step:
+        return
+
+    if step == "WAITING_API_ID":
+        if not text.isdigit():
+            return await message.reply_text(
+                strings["api_numeric_error"],
                 parse_mode=enums.ParseMode.HTML
             )
-        except (PhoneCodeInvalid, PhoneCodeExpired):
-            await msg.edit_text("❌ Galat ya expired OTP! Dobara `/start` karein.")
-            try:
-                await temp_client.disconnect()
-            except:
-                pass
-            user_states.pop(user_id, None)
-        except Exception as e:
-            await msg.edit_text(f"❌ Error: <code>{str(e)}</code>")
-            try:
-                await temp_client.disconnect()
-            except:
-                pass
-            user_states.pop(user_id, None)
+        user_data[user_id]["api_id"] = int(text)
+        user_steps[user_id] = "WAITING_API_HASH"
+        await message.reply_text(
+            strings["api_hash_prompt"],
+            parse_mode=enums.ParseMode.HTML
+        )
 
-    # STEP 3: 2FA PASSWORD INPUT
-    elif step == "AWAITING_PASSWORD":
-        password = message.text.strip()
-        temp_client = state["client"]
+    elif step == "WAITING_API_HASH":
+        user_data[user_id]["api_hash"] = text
+        user_steps[user_id] = "WAITING_PHONE"
+        await message.reply_text(
+            strings["phone_prompt"],
+            parse_mode=enums.ParseMode.HTML
+        )
 
-        msg = await message.reply("⏳ Password check ho raha hai...")
-
+    elif step == "WAITING_PHONE":
+        user_data[user_id]["phone"] = text
+        await message.reply_text(
+            strings["otp_sending"],
+            parse_mode=enums.ParseMode.HTML
+        )
+        
+        temp_client = Client(
+            f"user_{user_id}",
+            api_id=user_data[user_id]["api_id"],
+            api_hash=user_data[user_id]["api_hash"],
+            in_memory=True
+        )
+        await temp_client.connect()
         try:
-            await temp_client.check_password(password)
-            session_str = await temp_client.export_session_string()
-            await temp_client.disconnect()
-            user_states.pop(user_id, None)
-            await send_session(client, user_id, session_str, msg)
-        except PasswordHashInvalid:
-            await msg.edit_text("❌ Galat 2FA Password! Dobara sahi password enter karein:")
+            code_info = await temp_client.send_code(user_data[user_id]["phone"])
+            user_data[user_id]["temp_client"] = temp_client
+            user_data[user_id]["phone_code_hash"] = code_info.phone_code_hash
+            user_steps[user_id] = "WAITING_OTP"
+            await message.reply_text(
+                strings["otp_prompt"],
+                parse_mode=enums.ParseMode.HTML
+            )
         except Exception as e:
-            await msg.edit_text(f"❌ Error: <code>{str(e)}</code>")
-            try:
-                await temp_client.disconnect()
-            except:
-                pass
-            user_states.pop(user_id, None)
+            await temp_client.disconnect()
+            user_steps[user_id] = None
+            await message.reply_text(
+                strings["otp_error"].format(e=e),
+                parse_mode=enums.ParseMode.HTML
+            )
 
+    elif step == "WAITING_OTP":
+        otp = text.replace(" ", "")
+        temp_client = user_data[user_id]["temp_client"]
+        try:
+            await temp_client.sign_in(
+                phone_number=user_data[user_id]["phone"],
+                phone_code_hash=user_data[user_id]["phone_code_hash"],
+                phone_code=otp
+            )
+            string_session = await temp_client.export_session_string()
+            await temp_client.disconnect()
+            
+            await message.reply_text(
+                strings["session_success"].format(string_session=string_session),
+                parse_mode=enums.ParseMode.HTML
+            )
+            user_steps[user_id] = None
+            
+        except SessionPasswordNeeded:
+            user_steps[user_id] = "WAITING_PASSWORD"
+            await message.reply_text(
+                strings["password_prompt"],
+                parse_mode=enums.ParseMode.HTML
+            )
+        except Exception as e:
+            await temp_client.disconnect()
+            user_steps[user_id] = None
+            await message.reply_text(
+                strings["otp_fail"].format(e=e),
+                parse_mode=enums.ParseMode.HTML
+            )
 
-# --- 4. SESSION STRING DELIVERY ---
-async def send_session(bot_client: Client, user_id: int, session_str: str, status_msg: Message):
-    try:
-        await status_msg.delete()
-    except Exception:
-        pass
+    elif step == "WAITING_PASSWORD":
+        temp_client = user_data[user_id]["temp_client"]
+        try:
+            await temp_client.check_password(text)
+            string_session = await temp_client.export_session_string()
+            await temp_client.disconnect()
+            
+            await message.reply_text(
+                strings["session_success"].format(string_session=string_session),
+                parse_mode=enums.ParseMode.HTML
+            )
+            user_steps[user_id] = None
+        except Exception as e:
+            await temp_client.disconnect()
+            user_steps[user_id] = None
+            await message.reply_text(
+                strings["password_fail"].format(e=e),
+                parse_mode=enums.ParseMode.HTML
+            )
 
-    text = (
-        "🎉 <b>Pyrogram Your Key Generated!</b>\n\n"
-        f"<code>{session_str}</code>\n\n"
-        "🔒 <b>Key Update :</b> ISE COPY KRKE OWNER KO SEND KRE  @Simple_Boy_1k "
-    )
-    await bot_client.send_message(user_id, text, parse_mode=enums.ParseMode.HTML)
-
-
-# --- MAIN ENTRY POINT ---
-if __name__ == "__main__":
-    print("🚀 Sarkar String Session Generator Bot Started!")
-    bot.run()
+bot.run()
