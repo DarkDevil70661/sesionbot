@@ -1,2 +1,4 @@
-pyrofork
+PyYAML
+motor
+pyrogram
 tgcrypto
