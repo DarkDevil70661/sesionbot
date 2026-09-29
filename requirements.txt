@@ -2,3 +2,4 @@ PyYAML
 motor
 pyrogram
 tgcrypto
+python-dotenv
