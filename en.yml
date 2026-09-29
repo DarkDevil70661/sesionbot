@@ -1,0 +1,41 @@
+Tg_1: '<blockquote><b><u>{0} ᴀʟʟ ᴛᴇxᴛ ᴡɪʟʟ ʙᴇ ɪɴsɪᴅᴇ ᴛʜɪs ᴡɪᴛʜᴏᴜᴛ ᴏᴛʜᴇʀ ғɪʟᴇs</u></b></blockquote>'
+
+welcome_caption: "<blockquote>🎭 <b>» 𝐖єʟᴄᴏᴍє 𝐓ᴏ 𝐒єssɪᴏη 𝕲єηєʀᴀᴛᴏʀ</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>𝐔sєʀ :</b> 『 {first_name} 』\n\n🆔 <b>𝐈ᴅ :</b> <code>{user_id}</code>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n⚡ <b>sᴀғє & ғᴀsᴛ ᴘʏʀᴏɢʀᴀᴍ sᴛʀɪηɢ sєssɪᴏη.</b>\n\n💡 <b>ᴄʜᴏᴏsє ᴀη ᴏᴘᴛɪᴏη ʙєʟᴏᴡ ᴛᴏ sᴛᴀʀᴛ :</b></blockquote>"
+
+verify_text: "<blockquote>⚠️ <b>» ᴍᴜsᴛ ᴊᴏɪη ᴄʜᴀɴηєʟs ᴛᴏ ᴀᴄᴄєss!</b>\n\n🔹 ᴘʟєᴀsє ᴊᴏɪη ᴏᴜʀ ʀєϙᴜɪʀєᴅ ᴄʜᴀɴηєʟs ᴛᴏ ᴜsє ᴛʜɪs ʙᴏᴛ.\n\n🔹 ᴀғᴛєʀ ᴊᴏɪηɪηɢ, ᴄʟɪᴄᴋ <b>ᴠєʀɪғʏ ᴊᴏɪη</b> ᴛᴏ ᴜηʟᴏᴄᴋ.</blockquote>"
+
+log_text: "<blockquote>📥 <b>» ηєᴡ ᴜsєʀ sᴛᴀʀᴛєᴅ ᴛʜє ʙᴏᴛ!</b>\n\n👤 <b>ɴᴀᴍє :</b> <code>{full_name}</code>\n\n🆔 <b>ᴜsєʀ ɪᴅ :</b> <code>{user_id}</code>\n\n🔗 <b>ᴜsєʀɴᴀᴍє :</b> {username}\n\n⚡ <b>sᴛᴀᴛᴜs :</b> ᴊᴏɪηєᴅ vɪᴀ sᴛᴀʀᴛ ᴄᴏᴍᴍᴀηᴅ</blockquote>"
+
+api_id_prompt: "<blockquote>👉 <b>» ᴘʟєᴀsє єηᴛєʀ ʏᴏᴜʀ ᴀᴘɪ ɪᴅ :</b></blockquote>"
+
+api_hash_prompt: "<blockquote>👉 <b>» ηᴏᴡ sєηᴅ ʏᴏᴜʀ ᴀᴘɪ ʜᴀsʜ :</b></blockquote>"
+
+phone_prompt: "<blockquote>👉 <b>» єηᴛєʀ ʏᴏᴜʀ ᴘʜᴏηє ηᴜᴍʙєʀ ᴡɪᴛʜ ᴄᴏᴜηᴛʀʏ ᴄᴏᴅє (є.ɢ., +88017...) :</b></blockquote>"
+
+otp_sending: "<blockquote>⏳ <b>» sєηᴅɪηɢ ᴏᴛᴘ ᴄᴏᴅє, ᴘʟєᴀsє ᴡᴀɪᴛ...</b></blockquote>"
+
+otp_prompt: "<blockquote>👉 <b>» єηᴛєʀ ᴛʜє ᴏᴛᴘ ᴄᴏᴅє sєηᴛ ᴛᴏ ʏᴏᴜʀ ᴛєʟєɢʀᴀᴍ ᴀᴄᴄᴏᴜⁱᴛ (ᴇ.ɢ., 1 2 3 4 5 ᴏʀ 12345):</b></blockquote>"
+
+password_prompt: "<blockquote>👉 <b>» 2-sᴛєᴘ vєʀɪғɪᴄᴀᴛɪᴏη ᴅєᴛєᴄᴛєᴅ. єηᴛєʀ ʏᴏᴜʀ ᴀᴄᴄᴏᴜηᴛ ᴘᴀssᴡᴏʀᴅ :</b></blockquote>"
+
+broadcast_no_reply: "<blockquote>⚠️ <b>» ᴘʟєᴀsє ʀєᴘʟʏ ᴛᴏ ᴀ ᴍєssᴀɢє ᴀηᴅ ᴛʏᴘє <code>/broadcast</code>!</b></blockquote>"
+
+broadcast_start: "<blockquote>🚀 <b>» ʙʀᴏᴀᴅᴄᴀsᴛɪηɢ ʜᴀs sᴛᴀʀᴛєᴅ...</b></blockquote>"
+
+broadcast_done: "<blockquote>✅ <b>» ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟєᴛєᴅ!</b>\n\n🔹 <b>sᴜᴄᴄєss :</b> <code>{success}</code>\n\n❌ <b>ғᴀɪʟєᴅ :</b> <code>{failed}</code>\n\n🚫 <b>ʙʟᴏᴄᴋєᴅ :</b> <code>{blocked}</code></blockquote>"
+
+api_numeric_error: "<blockquote>❌ <b>» ᴀᴘɪ ɪᴅ ᴍᴜsᴛ ʙє ηᴜᴍєʀɪᴄ. ᴛʀʏ ᴀɢᴀɪη :</b></blockquote>"
+
+otp_error: "<blockquote>❌ <b>» єʀʀᴏʀ sєηᴅɪηɢ ᴏᴛᴘ :</b> <code>{e}</code></blockquote>"
+
+session_success: "<blockquote>✅ <b>ᴛʜɪs ɪs ʏᴏᴜʀ sᴛʀɪηɢ sᴇssɪᴏη</b>\n\n<code>{string_session}</code>\n\n<b>ɢᴇηʀᴀᴛᴇᴅ ʙʏ :</b> <a href=\"https://t.me/String_father_Bot\">˹ꜱᴛʀɪɴɢ ꭙ ꜰᴀᴛʜᴇʀ˼[🇮🇳]</a>\n\n<b>ᴡᴀʀηɪηɢ :</b> ᴅᴏηᴛ sʜᴀʀᴇ ᴡɪᴛʜ ᴀηʏᴏɴᴇ ᴇᴠᴇɴ ɪғ ᴡɪᴛʜ ʏᴏᴜʀ ɢғ 🏴‍☠️\n\n🤞 <b>𝐏ᴏᴡєʀєᴅ 𝐁ʏ ➛ 𝐗_𝐒𝐇𝐀𝐃𝐎𝐖🙂❤️</b></blockquote>"
+
+otp_fail: "<blockquote>❌ <b>» ɪηᴄᴏʀʀєᴄᴛ ᴏᴛᴘ ᴏʀ vєʀɪғɪᴄᴀᴛɪᴏη ғᴀɪʟєᴅ :</b> <code>{e}</code></blockquote>"
+
+password_fail: "<blockquote>❌ <b>» ᴘᴀssᴡᴏʀᴅ vєʀɪғɪᴄᴀᴛɪᴏη ғᴀɪʟєᴅ :</b> <code>{e}</code></blockquote>"
+
+start_1: "<blockquote>🤖 <b>{0}❍ ɪs ᴧʟɪᴠє ●</b>\n\n✨ <b>❍ υᴘᴛɪϻє :</b></blockquote>"
+
+error_format: "<blockquote><b>» 𝐒ᴏᴍєᴛʜɪηɢ 𝐖єηᴛ 𝐖ʀᴏηɢ 𝐖ʜɪʟє 𝐏ʀᴏᴄєssɪηɢ 𝐘ᴏᴜʀ 𝐐ᴜєʀʏ.</b>\n\n<b>𝐄xᴄᴇᴘᴛɪᴏη :</b> <code>{0}</code></blockquote>"
+
+general_2: "<blockquote><b>» ɴᴏᴛɪᴄᴇ :</b>\n\n<b>ᴅᴇᴛᴀɪʟꜱ :</b> <code>{0}</code></blockquote>"
