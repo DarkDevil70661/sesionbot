@@ -1,41 +1,19 @@
-Tg_1: "<blockquote><b><u>✨ {0}</u></b></blockquote>"
+Tg_1: "<blockquote><b><u>{0} ᴀʟʟ ᴛᴇxᴛ ᴡɪʟʟ ʙᴇ ɪɴsɪᴅᴇ ᴛʜɪs</u></b></blockquote>"
 
-welcome_caption: "<blockquote>👋 <b>𝐇ᴇʏ 𝐓ʜᴇʀᴇ, 『 {first_name} 』</b> 💫\n\n🎭 <b>𝐘ᴏᴜ'ʀᴇ 𝐔sɪɴɢ</b> 『 <b>𝐒ᴇssɪᴏɴ 𝐆ᴇɴᴇʀᴀᴛᴏʀ</b> 』\n\n━━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>𝐔sᴇʀ :</b> 『 {first_name} 』\n🆔 <b>𝐈ᴅ :</b> <code>{user_id}</code>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n⚡ <b>𝐒ᴀғᴇ & 𝐅ᴀsᴛ 𝐏ʏʀᴏɢʀᴀᴍ sᴛʀɪɴɢ sᴇssɪᴏɴ</b> 🔐\n\n💡 <b>𝐂ʜᴏᴏsᴇ ᴀɴ ᴏᴘᴛɪᴏɴ ʙᴇʟᴏᴡ ᴛᴏ sᴛᴀʀᴛ</b> ✨</blockquote>"
+welcome_caption: "<blockquote>🎭 <b>» 𝐖єʟᴄᴏᴍє 𝐓ᴏ 𝐒єssɪᴏη 𝕲єηєʀᴀᴛᴏʀ</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n👤 <b>𝐔sєʀ :</b> 『 {first_name} 』\n\n🆔 <b>𝐈ᴅ :</b> <code>{user_id}</code>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n⚡ <b>sᴀғᴇ & ғᴀsᴛ ᴘʀᴏɢʀᴀᴍ</b>\n\n💡 <b>ᴄʜᴏᴏsє ᴀη ᴏᴘᴛɪᴏη ʙєʟᴏᴡ ᴛᴏ sᴛᴀʀᴛ :</b></blockquote>"
 
-verify_text: "<blockquote>⚠️ <b>» 𝐌ᴜsᴛ 𝐉ᴏɪɴ 𝐂ʜᴀɴɴᴇʟs 𝐓ᴏ 𝐀ᴄᴄᴇss</b>\n\n🔹 <b>𝐏ʟᴇᴀsᴇ ᴊᴏɪɴ ᴏᴜʀ ʀᴇǫᴜɪʀᴇᴅ ᴄʜᴀɴɴᴇʟs ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ.</b>\n\n🔹 <b>𝐀ғᴛᴇʀ ᴊᴏɪɴɪɴɢ, ᴄʟɪᴄᴋ 『 𝐕ᴇʀɪғʏ 𝐉ᴏɪɴ 』 ᴛᴏ ᴜɴʟᴏᴄᴋ.</b> 🔓</blockquote>"
+verify_text: "<blockquote>⚠️ <b>» ᴍᴜsᴛ ᴊᴏɪη ᴄʜᴀηηєʟs ᴛᴏ ᴀᴄᴄєss!</b>\n\n🔹 ᴘʟєᴀsє ᴊᴏɪη ᴏᴜʀ ʀєϙᴜɪʀєᴅ ᴄʜᴀηηєʟs.\n\n🔹 ᴀғᴛєʀ ᴊᴏɪηɪηɢ, ᴄʟɪᴄᴋ <b>ᴠєʀɪғʏ ᴊᴏɪη</b> ᴛᴏ ᴜηʟᴏᴄᴋ.</blockquote>"
 
-log_text: "<blockquote>📥 <b>» 𝐍ᴇᴡ 𝐔sᴇʀ 𝐒ᴛᴀʀᴛᴇᴅ 𝐓ʜᴇ 𝐁ᴏᴛ!</b>\n\n👤 <b>𝐍ᴀᴍᴇ :</b> <code>{full_name}</code>\n🆔 <b>𝐔sᴇʀ 𝐈ᴅ :</b> <code>{user_id}</code>\n🔗 <b>𝐔sᴇʀɴᴀᴍᴇ :</b> {username}\n\n⚡ <b>𝐒ᴛᴀᴛᴜs :</b> 𝐉ᴏɪɴᴇᴅ ᴠɪᴀ /start</blockquote>"
+log_text: "<blockquote>📥 <b>» ηєᴡ ᴜsєʀ sᴛᴀʀᴛєᴅ ᴛʜє ʙᴏᴛ!</b>\n\n👤 <b>ɴᴀᴍє :</b> <code>{full_name}</code>\n\n🆔 <b>ᴜsєʀ ɪᴅ :</b> <code>{user_id}</code>\n\n🔗 <b>ᴜsєʀɴᴀᴍє :</b> {username}\n\n⚡ <b>sᴛᴀᴛᴜs :</b> ᴊᴏɪηєᴅ vɪᴀ sᴛᴀʀᴛ ᴄᴏᴍᴍᴀηᴅ</blockquote>"
 
-api_id_prompt: "<blockquote>👉 <b>» 𝐏ʟᴇᴀsᴇ 𝐄ɴᴛᴇʀ 𝐘ᴏᴜʀ 𝐀ᴘɪ 𝐈ᴅ :</b></blockquote>"
+broadcast_no_reply: "<blockquote>⚠️ <b>» ᴘʟєᴀsє ʀєᴘʟʏ ᴛᴏ ᴀ ᴍєssᴀɢє ᴀηᴅ ᴛʏᴘє <code>/broadcast</code>!</b></blockquote>"
 
-api_hash_prompt: "<blockquote>🔐 <b>» 𝐍ᴏᴡ 𝐒ᴇɴᴅ 𝐘ᴏᴜʀ 𝐀ᴘɪ 𝐇ᴀsʜ :</b></blockquote>"
+broadcast_start: "<blockquote>🚀 <b>» ʙʀᴏᴀᴅᴄᴀsᴛɪηɢ ʜᴀs sᴛᴀʀᴛєᴅ...</b>\n\n⏳ <b>ᴘʟєᴀsє ᴡᴀɪᴛ...</b></blockquote>"
 
-phone_prompt: "<blockquote>📱 <b>» 𝐄ɴᴛᴇʀ 𝐘ᴏᴜʀ 𝐏ʜᴏɴᴇ 𝐍ᴜᴍʙᴇʀ 𝐖ɪᴛʜ 𝐂ᴏᴜɴᴛʀʏ 𝐂ᴏᴅᴇ</b>\n\n💡 <b>𝐄xᴀᴍᴘʟᴇ :</b> <code>+88017...</code></blockquote>"
+broadcast_done: "<blockquote>✅ <b>» ʙʀᴏᴀᴅᴄᴀsᴛ ᴄᴏᴍᴘʟєᴛєᴅ!</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n🟢 <b>sᴜᴄᴄєss :</b> <code>{success}</code>\n\n🔴 <b>ғᴀɪʟєᴅ :</b> <code>{failed}</code>\n\n🚫 <b>ʙʟᴏᴄᴋєᴅ :</b> <code>{blocked}</code></blockquote>"
 
-otp_sending: "<blockquote>⏳ <b>» 𝐒ᴇɴᴅɪɴɢ 𝐎ᴛᴘ 𝐂ᴏᴅᴇ...</b>\n\n⚡ <b>𝐏ʟᴇᴀsᴇ 𝐖ᴀɪᴛ</b> 🔐</blockquote>"
+start_1: "<blockquote>🤖 <b>{0} ❍ ɪs ᴀʟɪᴠє ●</b>\n\n✨ <b>❍ υᴘᴛɪᴍє :</b> {1}</blockquote>"
 
-otp_prompt: "<blockquote>🔢 <b>» 𝐄ɴᴛᴇʀ 𝐓ʜᴇ 𝐎ᴛᴘ 𝐂ᴏᴅᴇ 𝐒ᴇɴᴛ 𝐓ᴏ 𝐘ᴏᴜʀ 𝐓ᴇʟᴇɢʀᴀᴍ 𝐀ᴄᴄᴏᴜɴᴛ</b>\n\n💡 <b>𝐄xᴀᴍᴘʟᴇ :</b> <code>1 2 3 4 5</code> ᴏʀ <code>12345</code></blockquote>"
+error_format: "<blockquote>⚠️ <b>» 𝐒ᴏᴍєᴛʜɪηɢ 𝐖єηᴛ 𝐖ʀᴏηɢ 𝐖ʜɪʟє 𝐏ʀᴏᴄєssɪηɢ 𝐘ᴏᴜʀ 𝐐ᴜєʀʏ.</b>\n\n❌ <b>𝐄xᴄᴇᴘᴛɪᴏη :</b>\n<code>{0}</code></blockquote>"
 
-password_prompt: "<blockquote>🔐 <b>» 2-Sᴛᴇᴘ 𝐕ᴇʀɪғɪᴄᴀᴛɪᴏɴ 𝐃ᴇᴛᴇᴄᴛᴇᴅ!</b>\n\n👉 <b>𝐄ɴᴛᴇʀ 𝐘ᴏᴜʀ 𝐀ᴄᴄᴏᴜɴᴛ 𝐏ᴀssᴡᴏʀᴅ :</b></blockquote>"
-
-broadcast_no_reply: "<blockquote>⚠️ <b>» 𝐏ʟᴇᴀsᴇ 𝐑ᴇᴘʟʏ 𝐓ᴏ 𝐀 𝐌ᴇssᴀɢᴇ</b>\n\n💡 <b>𝐓ʜᴇɴ 𝐓ʏᴘᴇ :</b> <code>/broadcast</code></blockquote>"
-
-broadcast_start: "<blockquote>🚀 <b>» 𝐁ʀᴏᴀᴅᴄᴀsᴛɪɴɢ 𝐇ᴀs 𝐒ᴛᴀʀᴛᴇᴅ...</b>\n\n⚡ <b>𝐏ʟᴇᴀsᴇ 𝐖ᴀɪᴛ</b> ✨</blockquote>"
-
-broadcast_done: "<blockquote>✅ <b>» 𝐁ʀᴏᴀᴅᴄᴀsᴛ 𝐂ᴏᴍᴘʟᴇᴛᴇᴅ!</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n🟢 <b>𝐒ᴜᴄᴄᴇss :</b> <code>{success}</code>\n🔴 <b>𝐅ᴀɪʟᴇᴅ :</b> <code>{failed}</code>\n⚫ <b>𝐁ʟᴏᴄᴋᴇᴅ :</b> <code>{blocked}</code></blockquote>"
-
-api_numeric_error: "<blockquote>❌ <b>» 𝐀ᴘɪ 𝐈ᴅ 𝐌ᴜsᴛ 𝐁ᴇ 𝐍ᴜᴍᴇʀɪᴄ!</b>\n\n🔄 <b>𝐏ʟᴇᴀsᴇ 𝐓ʀʏ 𝐀ɢᴀɪɴ.</b></blockquote>"
-
-otp_error: "<blockquote>❌ <b>» 𝐄ʀʀᴏʀ 𝐒ᴇɴᴅɪɴɢ 𝐎ᴛᴘ</b>\n\n<code>{e}</code></blockquote>"
-
-session_success: "<blockquote>✅ <b>» 𝐘ᴏᴜʀ 𝐒ᴛʀɪɴɢ 𝐒ᴇssɪᴏɴ 𝐈s 𝐑ᴇᴀᴅʏ!</b> 🎉\n\n━━━━━━━━━━━━━━━━━━━━━\n\n🔐 <code>{string_session}</code>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n🤖 <b>𝐆ᴇɴᴇʀᴀᴛᴇᴅ 𝐁ʏ :</b> <a href=\"https://t.me/String_father_Bot\">˹ꜱᴛʀɪɴɢ ꭙ ꜰᴀᴛʜᴇʀ˼</a>\n\n⚠️ <b>𝐖ᴀʀɴɪɴɢ :</b> 𝐃ᴏɴ'ᴛ sʜᴀʀᴇ ʏᴏᴜʀ sᴛʀɪɴɢ sᴇssɪᴏɴ ᴡɪᴛʜ ᴀɴʏᴏɴᴇ.\n\n💫 <b>𝐏ᴏᴡᴇʀᴇᴅ 𝐁ʏ ➛ 𝐗_𝐒𝐇𝐀𝐃𝐎𝐖 ❤️</b></blockquote>"
-
-otp_fail: "<blockquote>❌ <b>» 𝐈ɴᴄᴏʀʀᴇᴄᴛ 𝐎ᴛᴘ 𝐎ʀ 𝐕ᴇʀɪғɪᴄᴀᴛɪᴏɴ 𝐅ᴀɪʟᴇᴅ!</b>\n\n<code>{e}</code></blockquote>"
-
-password_fail: "<blockquote>❌ <b>» 𝐏ᴀssᴡᴏʀᴅ 𝐕ᴇʀɪғɪᴄᴀᴛɪᴏɴ 𝐅ᴀɪʟᴇᴅ!</b>\n\n<code>{e}</code></blockquote>"
-
-start_1: "<blockquote>🤖 <b>{0} ❍ ɪs 𝐀ʟɪᴠᴇ ●</b>\n\n⚡ <b>❍ 𝐔ᴘᴛɪᴍᴇ :</b> {1}</blockquote>"
-
-error_format: "<blockquote>⚠️ <b>» 𝐒ᴏᴍᴇᴛʜɪɴɢ 𝐖ᴇɴᴛ 𝐖ʀᴏɴɢ 𝐖ʜɪʟᴇ 𝐏ʀᴏᴄᴇssɪɴɢ 𝐘ᴏᴜʀ 𝐐ᴜᴇʀʏ.</b>\n\n❌ <b>𝐄xᴄᴇᴘᴛɪᴏɴ :</b>\n<code>{0}</code></blockquote>"
-
-general_2: "<blockquote>📢 <b>» 𝐍ᴏᴛɪᴄᴇ</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n📝 <b>𝐃ᴇᴛᴀɪʟs :</b>\n<code>{0}</code></blockquote>"
+general_2: "<blockquote>📢 <b>» ɴᴏᴛɪᴄᴇ :</b>\n\n━━━━━━━━━━━━━━━━━━━━━\n\n<b>ᴅᴇᴛᴀɪʟs :</b>\n<code>{0}</code></blockquote>"
